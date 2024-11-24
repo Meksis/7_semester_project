@@ -1,0 +1,130 @@
+/* Общие стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fb;
+  }
+  
+  h2 {
+    margin: 0;
+    padding: 10px 0;
+    color: #333;
+  }
+  
+  /* Основной контейнер */
+  .main-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* Левая панель */
+  .sidebar {
+    width: 25%;
+    background: #1e2a38;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .sidebar h2 {
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  .sidebar button {
+    background: #0078d4;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+  }
+  
+  .sidebar button:hover {
+    background: #005bb5;
+  }
+  
+  .chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
+  .chat-history div {
+    padding: 10px;
+    background: #2b3a47;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .chat-history div:hover {
+    background: #3c4d5c;
+  }
+  
+  /* Основной чат */
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background: #ffffff;
+    border-left: 1px solid #ccc;
+  }
+  
+  .chat-header {
+    background: #0078d4;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .chat-output {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #f9f9f9;
+  }
+  
+  .chat-input {
+    display: flex;
+    padding: 15px;
+    background: #fff;
+    border-top: 1px solid #ccc;
+  }
+  
+  .chat-input textarea {
+    flex: 1;
+    resize: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .chat-input button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background: #0078d4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .chat-input button:hover {
+    background: #005bb5;
+  }
+  
+  /* Сообщения */
+  .user-message,
+  .bot-message {
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 10px
+  }
