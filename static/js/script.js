@@ -6,11 +6,15 @@ let flask_url = '127.0.0.1:5000';
 
 
 // let ollama_url = 'zitrax-ollama-11434-tcp.at.remote.it:33001';
-let ollama_proto = 'http';
-let ollama_url = '127.0.0.1:11434';
+let ollama_proto = 'https';
+let ollama_url = 'localhost';
+
+let model = '3';
 
 // let uuid = localStorage.getItem('uuid');
 let chats = {};
+
+// let current_chat;
 
 // Получаем начальные данные 
 (async () => {
@@ -35,7 +39,7 @@ let chats = {};
     localStorage.setItem('uuid', new_uuid);
     uuid = new_uuid;
 
-    const response = await fetch(`${ollama_proto}://${flask_url}/create_user`, {
+    const response = await fetch(`${flask_proto}://${flask_url}/create_user`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -68,13 +72,31 @@ async function sendMessage() {
     chatOutput.appendChild(userMessage);
 
     try {
+      // const response = await fetch(`${ollama_proto}://${ollama_url}/api/chat`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   }, 
+      //   body: JSON.stringify({
+      //     // model: "llama3.1",
+      //     model: model,
+      //     messages: [
+      //       {
+      //         role: "user",
+      //         content: userInput.value,
+      //       },
+      //     ],
+      //     stream: false,
+      //   })
+      // });
+
       const response = await fetch(`${ollama_proto}://${ollama_url}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         }, 
         body: JSON.stringify({
-          model: "llama3.1",
+          model: model,
           messages: [
             {
               role: "user",
@@ -82,7 +104,8 @@ async function sendMessage() {
             },
           ],
           stream: false,
-        })
+        }),
+        mode: 'no-cors'  // Игнорируем CORS для теста
       });
 
       const responseData = await response.json();
@@ -118,7 +141,8 @@ async function sendMessage() {
 function createNewChat() {
   const chatHistory = document.getElementById('chatHistory');
 
-  currentChatId = `chat-${Date.now()}`;
+  // currentChatId = `chat-${Date.now()}`;
+  currentChatId = crypto.randomUUID();
   chats[currentChatId] = [];
 
   const chatLink = document.createElement('div');

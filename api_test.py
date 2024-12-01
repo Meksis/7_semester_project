@@ -1,17 +1,22 @@
 from flask import Flask, request, jsonify, url_for, render_template
-import psycopg2
+import psycopg2, dotenv
+from dotenv import load_dotenv
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
 
+ENV_PATH = './configs/.env'
+load_dotenv(ENV_PATH, override=True)
+
+
 # Конфигурация подключения к базе данных
 DB_CONFIG = {
-    'dbname': 'postgres',
-    'user': 'postgres',
-    'password': '1111',
-    'host': '127.0.0.1',  # Или другой хост
-    'port': 5432          # По умолчанию для PostgreSQL
+    'dbname': dotenv.get_key(ENV_PATH, 'DB_NAME'),
+    'user': dotenv.get_key(ENV_PATH, 'DB_USER'),
+    'password':dotenv.get_key(ENV_PATH, 'DB_PASSWORD'),
+    'host': 'localhost',  
+    'port': dotenv.get_key(ENV_PATH, 'DB_PORT')          
 }
 
 

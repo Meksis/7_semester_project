@@ -1,0 +1,36 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama2
+    volumes:
+      - ollama:/root/.ollama
+    ports:
+      - "11435:11434" # Внутренний порт для Ollama, будет использоваться NGINX
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certifies:/etc/ssl:ro
+    ports:
+      - "443:443" # HTTPS порт
+      - "80:80"   # HTTP порт (для редиректа на HTTPS)
+    depends_on:
+      - ollama
+    restart: unless-stopped
+
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres-db
+    ports:
+      - "${DB_PORT}:5432"  # Порт берется из .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+volumes:
+  ollama:
+    driver: local
