@@ -14,11 +14,22 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./certifies:/etc/ssl:ro
+      # - ./nginx/templates/default.conf.template:/etc/nginx/templates/nginx.conf.template:ro   # Раскоментить, если хотим юзать прееменные окружения для nginx
     ports:
       - "443:443" # HTTPS порт
       - "80:80"   # HTTP порт (для редиректа на HTTPS)
+
+    # Раскоментить, если хотим юзать прееменные окружения для nginx    
+    # environment:
+      # FRONTEND_HOST: ${FRONTEND_HOST}
+      # FRONTEND_PORT: ${FRONTEND_PORT}
+
     depends_on:
       - ollama
+
+    # Раскоментить, если хотим юзать прееменные окружения для nginx
+    # command: /bin/sh -c "envsubst < /etc/nginx/templates/nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"
+
     restart: unless-stopped
 
 
@@ -33,4 +44,7 @@ services:
       POSTGRES_DB: ${DB_NAME}
 volumes:
   ollama:
+    driver: local
+
+  nginx:
     driver: local

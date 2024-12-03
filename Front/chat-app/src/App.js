@@ -12,7 +12,7 @@ function App() {
     const uuid = localStorage.getItem('uuid') || crypto.randomUUID();
     localStorage.setItem('uuid', uuid);
 
-    fetch(`https://127.0.0.1:5000/get_chats4user?uuid=${uuid}`)
+    fetch(`https://localhost/get_chats4user?uuid=${uuid}`)
       .then(response => response.json())
       .then(data => setChats(data[1] || {}))
       .catch(() => console.error('Ошибка загрузки чатов'));
