@@ -1,15 +1,23 @@
+@font-face {
+  font-family: 'BuyanBold';
+  src: url('./BuyanBold.ttf') format('truetype');
+}
+
 /* Общие стили */
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'BuyanBold', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f5f7fb;
+  background-color: #f2f4f7;
+  color: #333;
 }
 
 h2 {
   margin: 0;
   padding: 10px 0;
-  color: #333;
+  color: #fff;
+  font-family: 'BuyanBold', sans-serif; /* Применение шрифта */
+  letter-spacing: 1.0px; /* Отступ между буквами */
 }
 
 /* Основной контейнер */
@@ -22,47 +30,63 @@ h2 {
 /* Левая панель */
 .sidebar {
   width: 25%;
-  background: #1e2a38;
+  background: #1f2c3b;
   color: white;
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+  font-family: 'BuyanBold', sans-serif; /* Применение шрифта */
+  letter-spacing: 1.0px; /* Отступ между буквами */
 }
 
 .sidebar h2 {
-  font-size: 18px;
+  font-size: 20px;
   text-align: center;
+  font-family: 'BuyanBold', sans-serif; /* Применение шрифта */
+  letter-spacing: 1.0px; /* Отступ между буквами */
 }
 
+/* Стиль для всех кнопок */
 .sidebar button {
-  background: #0078d4;
+  background: #4a90e2;
   color: white;
   border: none;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 15px;
+  border-radius: 25px;
+  font-size: 16px;
   cursor: pointer;
-  margin: 10px 0;
+  margin: 15px 0;
+  transition: background 0.3s;
+  font-family: 'BuyanBold', sans-serif;
+  letter-spacing: 1.0px;
 }
 
 .sidebar button:hover {
-  background: #005bb5;
+  background: #357ab8;
 }
 
 .chat-history {
   flex-grow: 1;
   overflow-y: auto;
+  padding: 10px;
+  font-family: 'BuyanBold', sans-serif; /* Применение шрифта */
+  letter-spacing: 1.0px; /* Отступ между буквами */
 }
 
 .chat-history div {
-  padding: 10px;
-  background: #2b3a47;
-  margin-bottom: 5px;
-  border-radius: 5px;
+  padding: 15px;
+  background: #2c3a48;
+  margin-bottom: 10px;
+  border-radius: 15px;
   cursor: pointer;
+  transition: background 0.3s;
+  font-family: 'BuyanBold', sans-serif; /* Применение шрифта */
+  letter-spacing: 1.0px; /* Отступ между буквами */
 }
 
 .chat-history div:hover {
-  background: #3c4d5c;
+  background: #3e4f5e;
 }
 
 /* Основной чат */
@@ -71,60 +95,96 @@ h2 {
   flex-direction: column;
   flex: 1;
   background: #ffffff;
-  border-left: 1px solid #ccc;
 }
 
 .chat-header {
-  background: #0078d4;
+  background: #4a90e2;
   color: white;
-  padding: 15px;
-  text-align: center;
-  font-size: 24px;
+  padding: 20px;
+  font-size: 26px;
+  margin-left: -1px;
   font-weight: bold;
+  text-align: center;
+  font-family: 'BuyanBold', sans-serif;
+  letter-spacing: 1.0px;
+  position: relative;
+}
+
+
+.chat-header .close-btn {
+  background: transparent !important; /* Прозрачный фон */
+  color: #ccc; /* Цвет крестика */
+  border: none; /* Убираем границу */
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+/* Эффект наведения на кнопки с крестиками */
+.chat-header .close-btn:hover {
+  color: #ff4d4d; /* Цвет крестика при наведении */
 }
 
 .chat-output {
   flex: 1;
-  padding: 20px;
+  padding: 25px;
   overflow-y: auto;
-  background: #f9f9f9;
+  background: #f6f8fb;
+  font-family: 'BuyanBold', sans-serif;
+  letter-spacing: 1.0px;
 }
 
 .chat-input {
   display: flex;
-  padding: 15px;
-  background: #fff;
-  border-top: 1px solid #ccc;
+  padding: 20px;
+  background: #ffffff;
+  border-top: 1px solid #ddd;
 }
 
 .chat-input textarea {
   flex: 1;
   resize: none;
-  padding: 10px;
+  padding: 15px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   font-size: 16px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .chat-input button {
-  margin-left: 10px;
-  padding: 10px 20px;
-  background: #0078d4;
+  margin-left: 15px;
+  padding: 15px 30px;
+  background: #4a90e2;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 25px;
   font-size: 16px;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
 .chat-input button:hover {
-  background: #005bb5;
+  background: #357ab8;
 }
 
 /* Сообщения */
 .user-message,
 .bot-message {
-  margin: 10px 0;
-  padding: 10px 15px;
-  border-radius: 10px
+  margin: 15px 0;
+  padding: 15px 20px;
+  border-radius: 20px;
+  font-family: 'BuyanBold', sans-serif;  /* Применение шрифта */
+  letter-spacing: 1.0px;
+}
+
+.user-message {
+  background: #e3f2fd;
+  align-self: flex-start;
+  letter-spacing: 1.0px;
+}
+
+.bot-message {
+  background: #d9edf7;
+  align-self: flex-end;
+  letter-spacing: 1.0px;
 }

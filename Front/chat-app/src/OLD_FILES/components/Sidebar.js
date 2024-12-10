@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Sidebar({ chats, createNewChat, setCurrentChatId, currentChatId, deleteChat }) {
+function Sidebar({ chats, createNewChat, setCurrentChatId, currentChatId }) {
   return (
     <div className="sidebar">
       <h2>История чатов</h2>
@@ -12,13 +12,7 @@ function Sidebar({ chats, createNewChat, setCurrentChatId, currentChatId, delete
             className={`chat-link ${currentChatId === chatId ? 'active' : ''}`}
             onClick={() => setCurrentChatId(chatId)}
           >
-            <span>{`Chat ${chatId.slice(0, 8)}`}</span> {/* Название чата */}
-            <button onClick={(e) => {
-              e.stopPropagation(); // Чтобы клик по кнопке не срабатывал на `onClick` чата
-              deleteChat(chatId);
-            }} className="delete-button">
-              ❌
-            </button>
+            Чат {chatId.slice(0)}
           </div>
         ))}
       </div>
