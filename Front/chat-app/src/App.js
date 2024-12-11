@@ -8,41 +8,37 @@ const ollama_model_name = 'llama3.1';
 function App() {
   const [chats, setChats] = useState({});
   const [currentChatId, setCurrentChatId] = useState(null);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false); // Добавлено состояние для сайдбара
 
   useEffect(() => {
-    // Сохраняем UUID пользователя
     const uuid = localStorage.getItem('uuid') || crypto.randomUUID();
     localStorage.setItem('uuid', uuid);
 
-    // Загружаем чаты с сервера
     fetch(`https://localhost/get_chats4user?uuid=${uuid}`)
       .then(response => response.json())
       .then(data => setChats(data[1] || {}))
       .catch(() => console.error('Ошибка загрузки чатов'));
   }, []);
 
-  // Создание нового чата
   const createNewChat = () => {
     const newChatId = crypto.randomUUID();
     setChats(prevChats => ({
       ...prevChats,
-      [newChatId]: [],  // Новый чат с пустым массивом сообщений
+      [newChatId]: [],
     }));
     setCurrentChatId(newChatId);
   };
 
-  // Удаление чата
   const deleteChat = (chatId) => {
     setChats(prevChats => {
       const { [chatId]: _, ...remainingChats } = prevChats;
       return remainingChats;
     });
     if (currentChatId === chatId) {
-      setCurrentChatId(null);  // Сбрасываем текущий чат
+      setCurrentChatId(null);
     }
   };
 
-  // Отправка сообщения
   const sendMessage = (message) => {
     if (!currentChatId) {
       alert('Сначала создайте новый чат!');
@@ -83,7 +79,6 @@ function App() {
       });
   };
 
-  // Получаем имя текущего чата для отображения в заголовке
   const currentChatName = currentChatId ? `Chat ${currentChatId.slice(0, 8)}` : 'Выберите чат';
 
   return (
@@ -94,11 +89,13 @@ function App() {
         setCurrentChatId={setCurrentChatId}
         currentChatId={currentChatId}
         deleteChat={deleteChat}
+        isCollapsed={isSidebarCollapsed} // Передача состояния сайдбара
+        toggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)} // Передача функции переключения
       />
       <ChatWindow
         messages={chats[currentChatId] || []}
         sendMessage={sendMessage}
-        currentChatName={currentChatName}  // Название текущего чата
+        currentChatName={currentChatName}
       />
     </div>
   );

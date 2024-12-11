@@ -188,3 +188,121 @@ h2 {
   align-self: flex-end;
   letter-spacing: 1.0px;
 }
+
+
+
+.sidebar {
+  width: 250px;
+  transition: width 0.3s ease;
+}
+
+/* .sidebar.collapsed {
+  width: 50px;
+} */
+
+
+
+
+
+
+
+
+/* Заголовок сайдбара с кнопкой */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background: #1f2c3b;
+  color: white;
+  border-bottom: 1px solid #333;
+}
+
+/* Кнопка сворачивания/разворачивания */
+.toggle-button {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toggle-button:hover {
+  background: #357ab8;
+}
+
+/* Свёрнутый сайдбар */
+.sidebar.collapsed {
+  width: 50px;
+  overflow: hidden;
+}
+
+.sidebar.collapsed h2,
+.sidebar.collapsed button:not(.toggle-button),
+.sidebar.collapsed .chat-history {
+  display: none;
+}
+
+/* Гармонизация элементов */
+.sidebar button {
+  margin: 10px 0;
+}
+
+
+
+
+
+
+
+/* Кнопка с тремя точками */
+.menu-container { 
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Кнопка меню */
+.menu-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 10px;
+}
+
+/* Стили для меню */
+.menu {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: #2c3a48;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  padding: 10px;
+  min-width: 120px;
+}
+
+.menu button {
+  background: none;
+  color: white;
+  border: none;
+  padding: 8px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.menu button:hover {
+  background: #3e4f5e;
+}
+
+
+
+
