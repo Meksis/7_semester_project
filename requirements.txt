@@ -3,3 +3,5 @@ requests
 flask
 flask-cors
 python-dotenv
+openpyxl
+pandas
