@@ -10,6 +10,13 @@ function App() {
   const [currentChatId, setCurrentChatId] = useState(null);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false); // Добавлено состояние для сайдбара
 
+  // Состояния для модального окна
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedReport, setSelectedReport] = useState(null);
+
+  // Файлы отчётов (затычка)
+  const reportFiles = ['Файл 1', 'Файл 2', 'Файл 3', 'Файл 4', 'Файл 5', 'Файл 6'];
+
   useEffect(() => {
     const uuid = localStorage.getItem('uuid') || crypto.randomUUID();
     localStorage.setItem('uuid', uuid);
@@ -79,6 +86,52 @@ function App() {
       });
   };
 
+  const handleReportSelect = (report) => {
+    setSelectedReport(report);
+  };
+
+  const handleReportSubmit = () => {
+    if (selectedReport && currentChatId) {
+      const reportMessage = { sender: 'bot', message: `Генерируется отчёт: "${selectedReport}"...` };
+      setChats(prevChats => ({
+        ...prevChats,
+        [currentChatId]: [...(prevChats[currentChatId] || []), reportMessage],
+      }));
+  
+      // Тут типа к ламе запрос с задержкой, можна нахуй бля убрать нахуй бля или похуй, я вообще карбона объелся, хуле ты мне сделаешь пидор ты гнойный, а? Соси сосиску, на ультра правом двигаемся, пойду пельмени в пальмовом масле обмазывать и охлаждать 
+      setTimeout(() => {
+        const generatedReport = `Это отчёт, сгенерированный для "${selectedReport}".`;
+        setChats(prevChats => ({
+          ...prevChats,
+          [currentChatId]: [...prevChats[currentChatId], { sender: 'bot', message: generatedReport }],
+        }));
+      }, 2000); 
+      // Запрос можно и такой 
+      // fetch('/your-backend-endpoint', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ reportName: selectedReport }),
+      // })
+      //   .then(response => response.json())
+      //   .then(data => {
+      //     const botMessage = { sender: 'bot', message: data.reportText };
+      //     setChats(prevChats => ({
+      //       ...prevChats,
+      //       [currentChatId]: [...(prevChats[currentChatId] || []), botMessage],
+      //     }));
+      //   })
+      //   .catch(error => {
+      //     console.error('Ошибка при запросе отчёта:', error);
+      //   });
+      
+      setIsModalOpen(false);
+      setSelectedReport(null);
+    } else {
+      alert('Пожалуйста, выберите отчёт!');
+    }
+  };
+  
+
   const currentChatName = currentChatId ? `Chat ${currentChatId.slice(0, 8)}` : 'Выберите чат';
 
   return (
@@ -91,12 +144,37 @@ function App() {
         deleteChat={deleteChat}
         isCollapsed={isSidebarCollapsed} // Передача состояния сайдбара
         toggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)} // Передача функции переключения
+        openModal={() => setIsModalOpen(true)} // Функция открытия модального окна
       />
       <ChatWindow
         messages={chats[currentChatId] || []}
         sendMessage={sendMessage}
         currentChatName={currentChatName}
       />
+
+      {/* Модальное окно */}
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Выберите отчёт</h2>
+            <ul className="report-list">
+              {reportFiles.map((file, index) => (
+                <li
+                  key={index}
+                  className={`report-item ${selectedReport === file ? 'selected' : ''}`}
+                  onClick={() => handleReportSelect(file)}
+                >
+                  {file}
+                </li>
+              ))}
+            </ul>
+            <div className="modal-buttons">
+              <button onClick={() => setIsModalOpen(false)}>Отмена</button>
+              <button onClick={handleReportSubmit} disabled={!selectedReport}>ОК</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

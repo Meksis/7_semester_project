@@ -1,3 +1,4 @@
 .venv
 */venv
 */node_modules
+/Front/chat-app/node_modules
