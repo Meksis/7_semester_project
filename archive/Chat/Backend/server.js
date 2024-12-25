@@ -4,7 +4,7 @@ const { Pool } = require('pg');
 const dotenv = require('dotenv');
 
 // Загрузка переменных окружения
-dotenv.config({ path: '../configs/.env' });
+dotenv.config({ path: '../../../configs/.env' });
 
 // Создаем приложение Express
 const app = express();
