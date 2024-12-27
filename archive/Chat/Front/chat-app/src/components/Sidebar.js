@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-function Sidebar({ chats, createNewChat, setCurrentChatId, currentChatId, deleteChat, isCollapsed, toggleCollapse, openModal }) {
+function Sidebar({ chats, createNewChat, setCurrentChatId, currentChatId, deleteChat, isCollapsed, toggleCollapse, testFunction, openModal }) {
   const [activeMenu, setActiveMenu] = useState(null); // Состояние для активного меню
 
   const handleMenuToggle = (chatId) => {
@@ -23,6 +23,7 @@ function Sidebar({ chats, createNewChat, setCurrentChatId, currentChatId, delete
       {!isCollapsed && (
         <>
           <button onClick={createNewChat}>+ Новый чат</button>
+          {/* <button onClick={testFunction}>INVOKE</button> */}
           <button className="report-button" onClick={openModal}>
             📄 Создать отчёт
           </button>
