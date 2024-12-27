@@ -44,6 +44,8 @@ function App() {
       const chatResponse = await fetch(`https://localhost/api/back/get_reports_filenames`);
   
         const data = await chatResponse.json();
+        // console.log(data);
+        // console.log(data.res);
         setReportFiles(data.res);
     }
   
@@ -68,7 +70,6 @@ function App() {
   
         const data = await chatResponse.json();
 
-        // console.log(data);
 
         // const userChats = data[0].chats.reduce((acc, key) => {
         //   acc[key] = [];
@@ -94,10 +95,6 @@ function App() {
         }, {}) || {}; // Чаты из ответа сервера
         
         
-
-        // console.log(userChats);
-
-  
         // Устанавливаем чаты в состояние
         setChats(userChats);
       } 
@@ -106,6 +103,8 @@ function App() {
       }
     };
     getReportFiles();
+
+
     createUser();
   }, []);
 
@@ -350,7 +349,7 @@ function App() {
         deleteChat={deleteChat}
         isCollapsed={isSidebarCollapsed}
         toggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-        // testFunction={writeChatsToLog}
+        testFunction={writeChatsToLog}
         openModal={() => setIsModalOpen(true)} // Функция открытия модального окна
       />
       <ChatWindow

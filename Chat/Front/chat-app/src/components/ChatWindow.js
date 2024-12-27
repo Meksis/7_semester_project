@@ -32,6 +32,7 @@ function ChatWindow({ messages, sendMessage, currentChatName }) {
 
   // Функция для обработки отображения текста с сохранением абзацев
   const formatMessage = (text) => {
+
     return text.split('\n').map((item, index) => (
       <span key={index}>
         {item}

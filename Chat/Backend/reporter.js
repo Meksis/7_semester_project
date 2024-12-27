@@ -7,7 +7,7 @@ const xlsx = require('xlsx'); // Библиотека для работы с Exc
 const axios = require('axios');
 
 // Константы для путей и URL
-const tablesPath = path.resolve('../../../Tables_Composer/Other_Files/Таблицы');
+const tablesPath = path.resolve('../../Tables_Composer/Other_Files/Таблицы');
 const proto = 'https';
 const url = 'localhost';
 

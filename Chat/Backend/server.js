@@ -10,13 +10,12 @@ const path = require('path');
 const processTable = require('./reporter');
 
 // Загрузка переменных окружения
-dotenv.config({ path: '../../../configs/.env' });
+dotenv.config({ path: '../../configs/.env' });
 
 // Создаем приложение Express
 const app = express();
 const server_root = '/api/back';
-const tables_Path = path.resolve('../../../Tables_Composer/Other_Files/Таблицы');
-
+const tables_Path = path.resolve('../../Tables_Composer/Other_Files/Таблицы');
 
 app.use(cors());
 app.use(express.json()); // Для работы с JSON-запросами
@@ -55,7 +54,7 @@ app.get(`${server_root}/get_chats4user`, async (req, res) => {
       FROM "USERS" u
       LEFT JOIN "CHATS" c ON c.chat_id = ANY(u.chats)
       WHERE u.id = $1 
-        AND c.role!=''; 
+        AND c.message!=''; 
 
     `, [uuid]);
 
@@ -159,7 +158,7 @@ app.get(`${server_root}/get_reports_filenames`, async (req, res) => {
     // const { chat_id, message, role } = req.body;
     // console.log(chat_id, message, role);
     const files = getFilesInDirectory(tables_Path, 'xlsx').map((value) => value.split('.')[0]);
-    // console.log(files);
+    console.log(files);
 
     
     // await pool.query('INSERT INTO "CHATS" VALUES($1, $2, $3);', [chat_id, role, message]);
@@ -169,23 +168,25 @@ app.get(`${server_root}/get_reports_filenames`, async (req, res) => {
   catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
+    throw error;
+
   }
 });
 
 
 app.post(`${server_root}/make_report`, async (req, res) => {
-  console.log('Получили запрос на создание отчета');
+  // console.log('Получили запрос на создание отчета');
   try {
     const { report_name } = req.body;
     // console.log(chat_id, message, role);
     // const files = getFilesInDirectory(tables_Path, 'xlsx').map((value) => value.split('.')[0]);
     // console.log(files);
     const report = await processTable(report_name);
-    console.log(report);
+    // console.log(report);
     
     // await pool.query('INSERT INTO "CHATS" VALUES($1, $2, $3);', [chat_id, role, message]);
     res.status(200).json({ res: report });
-    console.log('Отчет составлен');
+    // console.log('Отчет составлен');
   } 
   
   catch (error) {
